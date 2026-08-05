@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Root CLI installer (macOS / Linux). Safe for:
-#   curl -fsSL https://useroot.sh/install | bash
+#   curl -fsSL https://raw.githubusercontent.com/botdev2/root-cli/main/scripts/install.sh | bash
 #
 # Downloads the matching GitHub Release archive and puts `rootcli` on PATH.
 set -euo pipefail

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Compatibility wrapper. Prefer: curl -fsSL https://useroot.sh/install | bash
+# Compatibility wrapper. Prefer: curl -fsSL https://raw.githubusercontent.com/botdev2/root-cli/main/scripts/install.sh | bash
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 export ROOTCLI_GITHUB_REPO="${ROOTCLI_GITHUB_REPO:-botdev2/root-cli}"

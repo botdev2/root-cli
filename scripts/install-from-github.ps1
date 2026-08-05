@@ -1,6 +1,6 @@
 #Requires -Version 5.1
 <#
-  Compatibility wrapper. Prefer: irm https://useroot.sh/cli | iex
+  Compatibility wrapper. Prefer the CMD one-liner in README.md.
 #>
 param(
     [string]$Repo = "botdev2/root-cli",
