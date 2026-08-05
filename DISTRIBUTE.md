@@ -1,129 +1,117 @@
 # Distributing Root CLI 1.0.0 (Open Beta)
 
-## Windows installer
+## Where to upload
 
-For end users on Windows, prefer the product download page:
+**GitHub Releases** on the public repo [`botdev2/root-cli`](https://github.com/botdev2/root-cli).
 
-**https://useroot.sh/downloads**
+That is the store of truth for binaries. End users should **not** need the GitHub URL — they install via **useroot.sh** short commands below.
 
-## GitHub Releases (CLI binaries)
+Desktop Windows installer (separate product): **https://useroot.sh/downloads**
 
-Create a public GitHub repo, push this project, then attach platform binaries to a **Release**. That is the usual way people install the CLI from CMD / PowerShell / bash with one command.
+---
 
-### Why GitHub Releases
+## What users type (no GitHub link)
 
-- Works from any CMD / PowerShell / VS Code terminal via `irm` / `curl`
-- Versioned tags (`v0.1.0`)
-- Free for public repos
-- Later you can add Scoop / winget / Homebrew on top of the same assets
+**Windows (CMD / PowerShell / VS Code):**
 
-Other options (later):
+```powershell
+irm https://useroot.sh/cli | iex
+```
 
-| Channel | When |
-|---------|------|
-| **Scoop** (Windows) | After Releases exist — one-line `scoop install` |
-| **winget** | More paperwork; good once stable |
-| **Homebrew** | macOS/Linux later |
-| npm / pip | Possible but odd for a .NET native binary |
+**macOS / Linux:**
+
+```bash
+curl -fsSL https://useroot.sh/install | bash
+```
+
+After install, open a project folder:
+
+```bat
+rootcli here
+rootcli .
+rootcli ask "what does this project do?"
+```
+
+### Wire `useroot.sh` (one-time DNS / site setup)
+
+Point these paths at the install scripts in this repo (HTTP 302 redirect or reverse proxy):
+
+| Public URL | Target |
+|------------|--------|
+| `https://useroot.sh/cli` | `https://raw.githubusercontent.com/botdev2/root-cli/main/scripts/install.ps1` |
+| `https://useroot.sh/install` | `https://raw.githubusercontent.com/botdev2/root-cli/main/scripts/install.sh` |
+
+Until redirects are live, the same scripts work from GitHub raw:
+
+```powershell
+irm https://raw.githubusercontent.com/botdev2/root-cli/main/scripts/install.ps1 | iex
+```
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/botdev2/root-cli/main/scripts/install.sh | bash
+```
 
 ---
 
 ## Release assets to publish
 
-Build on each OS (or use `dotnet publish`):
+Build self-contained binaries, then attach them to a Release tag (e.g. `v1.0.0-beta`):
 
 ```bat
 REM Windows (from repo root)
-dotnet publish src\RootCli\RootCli.csproj -c Release -r win-x64 --self-contained true -o publish\win-x64
+dotnet publish src\RootCli\RootCli.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o publish\win-x64
 ```
 
 ```bash
 # Linux (from unix/)
-dotnet publish src/RootCli/RootCli.csproj -c Release -r linux-x64 --self-contained true -o publish/linux-x64
+dotnet publish src/RootCli/RootCli.csproj -c Release -r linux-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o publish/linux-x64
+dotnet publish src/RootCli/RootCli.csproj -c Release -r linux-arm64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o publish/linux-arm64
 
-# macOS Apple Silicon (from macos/)
-dotnet publish src/RootCli/RootCli.csproj -c Release -r osx-arm64 --self-contained true -o publish/osx-arm64
-
-# macOS Intel
-dotnet publish src/RootCli/RootCli.csproj -c Release -r osx-x64 --self-contained true -o publish/osx-x64
+# macOS (from macos/)
+dotnet publish src/RootCli/RootCli.csproj -c Release -r osx-arm64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o publish/osx-arm64
+dotnet publish src/RootCli/RootCli.csproj -c Release -r osx-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o publish/osx-x64
 ```
 
-Zip / tar and name consistently:
+Zip / tar names (install scripts look for these exact names):
 
 | Asset | Contents |
 |-------|----------|
-| `RootCli-win-x64.zip` | `RootCli.exe` (+ deps if not single-file) |
-| `RootCli-linux-x64.tar.gz` | Linux `RootCli` binary |
+| `RootCli-win-x64.zip` | `RootCli.exe` |
+| `RootCli-linux-x64.tar.gz` | Linux x64 `RootCli` |
+| `RootCli-linux-arm64.tar.gz` | Linux ARM64 `RootCli` |
 | `RootCli-osx-arm64.tar.gz` | Apple Silicon `RootCli` |
 | `RootCli-osx-x64.tar.gz` | Intel Mac `RootCli` |
 
-Optional single-file:
+Create the Release:
 
-```bat
-dotnet publish ... -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
+```bash
+gh release create v1.0.0-beta \
+  RootCli-win-x64.zip \
+  RootCli-linux-x64.tar.gz \
+  RootCli-linux-arm64.tar.gz \
+  RootCli-osx-arm64.tar.gz \
+  RootCli-osx-x64.tar.gz \
+  --repo botdev2/root-cli \
+  --title "Root CLI 1.0.0 (Open Beta)" \
+  --notes "Open Beta binaries. Install: irm https://useroot.sh/cli | iex   or   curl -fsSL https://useroot.sh/install | bash"
 ```
 
 ---
 
-## One-line install (after you publish)
+## Later channels (optional)
 
-Replace `botdev2/root-cli` in the scripts with your real repo.
-
-**Windows (CMD / PowerShell / VS Code):**
-
-```powershell
-irm https://raw.githubusercontent.com/botdev2/root-cli/main/scripts/install-from-github.ps1 | iex
-```
-
-Or clone then:
-
-```powershell
-.\scripts\install-from-github.ps1 -Repo botdev2/root-cli
-```
-
-**Linux:**
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/botdev2/root-cli/main/unix/scripts/install-from-github.sh | bash
-```
-
-Set the real repo in the script defaults, or:
-
-```bash
-ROOTCLI_GITHUB_REPO=botdev2/root-cli bash unix/scripts/install-from-github.sh
-```
-
----
-
-## Open Root in the current folder (VS Code)
-
-After `rootcli` is on PATH:
-
-```bat
-cd your-project
-rootcli here
-```
-
-Same:
-
-```bat
-rootcli .
-rootcli open
-```
-
-Ask/plan/agent default to the current folder if you omit `-r`:
-
-```bat
-rootcli ask "what does this project do?"
-rootcli agent "add a README section"
-```
+| Channel | When |
+|---------|------|
+| **Scoop** (Windows) | After Releases exist — `scoop install rootcli` |
+| **winget** | More paperwork; good once stable |
+| **Homebrew** | macOS/Linux formula pointing at the same Release assets |
 
 ---
 
 ## Checklist
 
-1. Create GitHub repo and push
-2. `dotnet publish` Windows + Linux self-contained builds
-3. Create Release `v0.1.0` and upload zip/tar assets
-4. Edit `botdev2/root-cli` in install scripts to your repo
-5. Tell people the one-liner above
+1. Push `main` (includes `scripts/install.ps1` + `scripts/install.sh`)
+2. `dotnet publish` all platform RIDs above
+3. Create Release + upload the five archives
+4. On **useroot.sh**, redirect `/cli` (and optionally `/install`) to those scripts
+5. Tell people only the two one-liners — not the GitHub URL

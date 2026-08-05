@@ -6,15 +6,30 @@ This is the **1.0.0 Open Beta**. APIs, menus, and install paths may still change
 
 ---
 
-## Downloads
+## Install (CLI)
 
-| Platform | How to get Root CLI |
-|----------|---------------------|
-| **Windows** | Preferred: desktop installer from **[useroot.sh/downloads](https://useroot.sh/downloads)**. Or build/install the CLI from this repo (below). |
-| **macOS** | Build from [`macos/`](macos/) or install a Release binary (see [DISTRIBUTE.md](DISTRIBUTE.md)). |
-| **Linux** | Build from [`unix/`](unix/) or install a Release binary (see [DISTRIBUTE.md](DISTRIBUTE.md)). |
+No GitHub link needed — one command per OS:
 
-Windows users who already use the Root desktop app should start at **[useroot.sh/downloads](https://useroot.sh/downloads)**.
+**Windows (CMD / PowerShell / VS Code):**
+
+```powershell
+irm https://useroot.sh/cli | iex
+```
+
+**macOS / Linux:**
+
+```bash
+curl -fsSL https://useroot.sh/install | bash
+```
+
+Then in any project folder:
+
+```bat
+rootcli here
+```
+
+Desktop Windows app (separate installer): **[useroot.sh/downloads](https://useroot.sh/downloads)**.  
+Publishing / Releases details: [DISTRIBUTE.md](DISTRIBUTE.md).
 
 ---
 
@@ -42,11 +57,13 @@ In chat: `g` = agent, `p` = plan, `q` = ask.
 
 ## Windows
 
-### Install (recommended)
+### Install CLI
 
-Get the Windows installer from:
+```powershell
+irm https://useroot.sh/cli | iex
+```
 
-**https://useroot.sh/downloads**
+Desktop app installer: **https://useroot.sh/downloads**
 
 ### Build the CLI from this repo
 
@@ -90,6 +107,12 @@ rootcli ask "What does this project do?"
 
 ## macOS
 
+### Install CLI
+
+```bash
+curl -fsSL https://useroot.sh/install | bash
+```
+
 ### Build
 
 ```bash
@@ -130,6 +153,12 @@ dotnet publish src/RootCli/RootCli.csproj -c Release -r osx-x64 --self-contained
 ---
 
 ## Linux
+
+### Install CLI
+
+```bash
+curl -fsSL https://useroot.sh/install | bash
+```
 
 ### Build
 
