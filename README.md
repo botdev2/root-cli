@@ -28,8 +28,7 @@ Then in any project folder:
 rootcli here
 ```
 
-Desktop Windows app (separate installer): **[useroot.sh/downloads](https://useroot.sh/downloads)**.  
-Publishing / Releases details: [DISTRIBUTE.md](DISTRIBUTE.md).
+Desktop Windows app (separate installer): **[useroot.sh/downloads](https://useroot.sh/downloads)**.
 
 ---
 
@@ -130,13 +129,6 @@ Binary:
 macos/src/RootCli/bin/Release/net8.0/RootCli
 ```
 
-Publish (Apple Silicon / Intel):
-
-```bash
-dotnet publish src/RootCli/RootCli.csproj -c Release -r osx-arm64 --self-contained true -o publish/osx-arm64
-dotnet publish src/RootCli/RootCli.csproj -c Release -r osx-x64 --self-contained true -o publish/osx-x64
-```
-
 ### Config (macOS)
 
 ```text
@@ -175,12 +167,6 @@ Binary:
 
 ```text
 unix/src/RootCli/bin/Release/net8.0/RootCli
-```
-
-Publish:
-
-```bash
-dotnet publish src/RootCli/RootCli.csproj -c Release -r linux-x64 --self-contained true -o publish/linux-x64
 ```
 
 ### Config (Linux)
@@ -281,19 +267,6 @@ Default server: **codebase-memory** (optional). Resolve order:
 | `ROOTCLI_REPO` | Default project path |
 | `ROOTCLI_GITHUB_TOKEN` / `GITHUB_TOKEN` | GitHub PAT |
 | `ROOTCLI_MCP_CODEBASE_MEMORY` | Path to MCP binary |
-
----
-
-## Repository layout
-
-```text
-src/RootCli/           Windows host
-src/RootCli.Core/      Shared agent, tools, Ollama, MCP, git
-unix/                  Linux host
-macos/                 macOS host
-scripts/               Windows install helpers
-DISTRIBUTE.md          Release / publish notes
-```
 
 ---
 

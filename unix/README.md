@@ -39,10 +39,4 @@ rootcli ask "Summarize this repo"
 ~/.local/share/root-cli/
 ```
 
-## Publish
-
-```bash
-dotnet publish src/RootCli/RootCli.csproj -c Release -r linux-x64 --self-contained true -o publish/linux-x64
-```
-
 See the main [README](../README.md) for full command reference.
