@@ -1,7 +1,8 @@
 #Requires -Version 5.1
 <#
-  Root CLI installer (Windows). Safe for:
-    irm https://useroot.sh/cli | iex
+  Root CLI installer (Windows). From CMD / PowerShell / VS Code:
+
+    powershell -NoProfile -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/botdev2/root-cli/main/scripts/install.ps1 | iex"
 
   Downloads the latest GitHub Release zip and puts `rootcli` on PATH.
 #>

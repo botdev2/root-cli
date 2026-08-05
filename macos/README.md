@@ -2,16 +2,22 @@
 
 Terminal agent for macOS (Apple Silicon and Intel). Uses [Ollama](https://ollama.com) for local and cloud models.
 
-Windows installer (separate product download): [useroot.sh/downloads](https://useroot.sh/downloads).
+## Install
 
-## Requirements
+```bash
+curl -fsSL https://raw.githubusercontent.com/botdev2/root-cli/main/scripts/install.sh | bash
+```
+
+Desktop Windows app: [useroot.sh/downloads](https://useroot.sh/downloads).
+
+## Requirements (build from source)
 
 - [.NET 8 SDK](https://dotnet.microsoft.com/download)
 - [Ollama](https://ollama.com) (`brew install ollama` works well)
 - `git` on PATH (recommended)
 - zsh (default) or bash
 
-## Build & install
+## Build from source
 
 ```bash
 cd macos

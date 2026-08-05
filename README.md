@@ -8,27 +8,25 @@ This is the **1.0.0 Open Beta**. APIs, menus, and install paths may still change
 
 ## Install (CLI)
 
-No GitHub link needed — one command per OS:
+**Windows — works in CMD, PowerShell, and VS Code:**
 
-**Windows (CMD / PowerShell / VS Code):**
-
-```powershell
-irm https://useroot.sh/cli | iex
+```bat
+powershell -NoProfile -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/botdev2/root-cli/main/scripts/install.ps1 | iex"
 ```
 
 **macOS / Linux:**
 
 ```bash
-curl -fsSL https://useroot.sh/install | bash
+curl -fsSL https://raw.githubusercontent.com/botdev2/root-cli/main/scripts/install.sh | bash
 ```
 
-Then in any project folder:
+Then open a **new** terminal in any project folder:
 
 ```bat
 rootcli here
 ```
 
-Desktop Windows app (separate installer): **[useroot.sh/downloads](https://useroot.sh/downloads)**.
+Desktop Windows app: **[useroot.sh/downloads](https://useroot.sh/downloads)**.
 
 ---
 
@@ -58,11 +56,11 @@ In chat: `g` = agent, `p` = plan, `q` = ask.
 
 ### Install CLI
 
-```powershell
-irm https://useroot.sh/cli | iex
+```bat
+powershell -NoProfile -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/botdev2/root-cli/main/scripts/install.ps1 | iex"
 ```
 
-Desktop app installer: **https://useroot.sh/downloads**
+Desktop app: **https://useroot.sh/downloads**
 
 ### Build the CLI from this repo
 
@@ -109,7 +107,7 @@ rootcli ask "What does this project do?"
 ### Install CLI
 
 ```bash
-curl -fsSL https://useroot.sh/install | bash
+curl -fsSL https://raw.githubusercontent.com/botdev2/root-cli/main/scripts/install.sh | bash
 ```
 
 ### Build
@@ -149,7 +147,7 @@ macos/src/RootCli/bin/Release/net8.0/RootCli
 ### Install CLI
 
 ```bash
-curl -fsSL https://useroot.sh/install | bash
+curl -fsSL https://raw.githubusercontent.com/botdev2/root-cli/main/scripts/install.sh | bash
 ```
 
 ### Build
