@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\RootCli.Core\RootCli.Core.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyName>RootCli</AssemblyName>
+    <RootNamespace>RootCli</RootNamespace>
+    <Version>1.0.0</Version>
+    <Description>Root CLI 1.0.0 (Open Beta)</Description>
+  </PropertyGroup>
+
+  <!-- Refresh PowerShell Set-Alias + %LOCALAPPDATA%\root-cli\bin shim after every build.
+       Use the apphost .exe (TargetPath is the managed .dll for SDK-style projects). -->
+  <Target Name="InstallRootCliAlias" AfterTargets="Build">
+    <PropertyGroup>
+      <_RootCliAliasScript>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\..\scripts\install-rootcli-alias.ps1'))</_RootCliAliasScript>
+      <_RootCliExe>$([System.IO.Path]::GetFullPath('$(TargetDir)$(AssemblyName).exe'))</_RootCliExe>
+    </PropertyGroup>
+    <Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(_RootCliAliasScript)&quot; -ExePath &quot;$(_RootCliExe)&quot;"
+          IgnoreExitCode="true"
+          ContinueOnError="true" />
+  </Target>
+
+</Project>

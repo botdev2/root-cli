@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>RootCli</AssemblyName>
+    <RootNamespace>RootCli</RootNamespace>
+    <Version>1.0.0</Version>
+    <Description>Root CLI 1.0.0 (Open Beta)</Description>
+    <!-- Self-contained-friendly: produce a native apphost named RootCli -->
+    <UseAppHost>true</UseAppHost>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\RootCli.Core\RootCli.Core.csproj" />
+  </ItemGroup>
+
+  <!-- Optional: install ~/.local/bin/rootcli after build (Linux/macOS shells). -->
+  <Target Name="InstallRootCliAlias" AfterTargets="Build" Condition="'$(OS)' != 'Windows_NT'">
+    <PropertyGroup>
+      <_RootCliAliasScript>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\..\scripts\install-rootcli-alias.sh'))</_RootCliAliasScript>
+      <_RootCliBin>$([System.IO.Path]::GetFullPath('$(TargetDir)$(AssemblyName)'))</_RootCliBin>
+    </PropertyGroup>
+    <Exec Command="bash &quot;$(_RootCliAliasScript)&quot; &quot;$(_RootCliBin)&quot;"
+          IgnoreExitCode="true"
+          ContinueOnError="true" />
+  </Target>
+
+</Project>

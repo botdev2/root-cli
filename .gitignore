@@ -1,0 +1,15 @@
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.dll
+*.exe
+*.pdb
+*.log
+.idea/
+.DS_Store
+tmp_logo/
+publish/
+*.zip
+*.tar.gz
